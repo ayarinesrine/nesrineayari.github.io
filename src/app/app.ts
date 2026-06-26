@@ -1,10 +1,8 @@
-// src/app/app.ts
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { SectionComponent } from './section/section';
 
-// Interfaces
 export interface NavItem {
   name: string;
   href: string;
