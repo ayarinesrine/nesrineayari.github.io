@@ -1,0 +1,9 @@
+// src/app/app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideAnimations(), // On garde seulement les animations
+  ],
+};

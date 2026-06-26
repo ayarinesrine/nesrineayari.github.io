@@ -1,0 +1,336 @@
+<!-- src/app/app.html -->
+<div class="min-h-screen text-white overflow-x-hidden" [class.dark-mode]="!isDarkMode" [class.light-mode]="isDarkMode">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 px-4 py-4 transition-all duration-300"
+    [class.bg-black/80]="isScrolled && isDarkMode" [class.bg-white/80]="isScrolled && !isDarkMode"
+    [class.backdrop-blur-xl]="isScrolled" [class.border-b]="isScrolled"
+    [class.border-white/5]="isScrolled && isDarkMode" [class.border-gray-200/5]="isScrolled && !isDarkMode">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-3 cursor-pointer" (click)="scrollTo('#home')">
+        <div
+          class="w-10 h-10 rounded-full bg-gradient-to-r from-[#fe66c4] to-[#7519e4] flex items-center justify-center font-bold text-lg transition-transform hover:scale-110">
+          NA
+        </div>
+        <span class="text-xl font-bold gradient-text">Nesrine Ayari</span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-8">
+        <a *ngFor="let item of navItems" [href]="item.href"
+          class="text-sm font-medium transition-all duration-300 hover:text-[#fe66c4] cursor-pointer relative"
+          [class.text-[#fe66c4]]="activeSection === item.name.toLowerCase()"
+          [class.text-gray-400]="activeSection !== item.name.toLowerCase()"
+          (click)="scrollTo(item.href); $event.preventDefault()">
+          {{ item.name }}
+          <span
+            class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-[#fe66c4] to-[#7519e4] transition-all duration-300"
+            [style.transform]="activeSection === item.name.toLowerCase() ? 'scaleX(1)' : 'scaleX(0)'"></span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button (click)="toggleTheme()"
+          class="p-2 rounded-full hover:bg-white/10 transition-colors text-gray-400 hover:text-white"
+          aria-label="Toggle theme">
+          {{ isDarkMode ? '🌙' : '☀️' }}
+        </button>
+        <button (click)="isMenuOpen = !isMenuOpen"
+          class="md:hidden p-2 text-gray-400 hover:text-white transition-colors">
+          <svg *ngIf="!isMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg *ngIf="isMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="isMenuOpen" @fadeInUp
+      class="md:hidden mt-4 bg-black/90 backdrop-blur-xl rounded-2xl p-4 border border-white/10">
+      <a *ngFor="let item of navItems" [href]="item.href"
+        class="block py-3 px-4 text-gray-300 hover:text-[#fe66c4] hover:bg-white/5 rounded-xl transition-all cursor-pointer"
+        (click)="scrollTo(item.href); $event.preventDefault()">
+        {{ item.name }}
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden" #hero>
+    <div class="absolute inset-0 bg-gradient-to-br from-[#fe66c4]/20 via-[#7519e4]/20 to-transparent">
+      <div class="absolute inset-0">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-[#fe66c4]/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#7519e4]/10 rounded-full blur-3xl animate-pulse"
+          style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-[#fe66c4]/10 rounded-full blur-3xl animate-pulse"
+          style="animation-delay: 2s;"></div>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div class="flex-1 text-center lg:text-left">
+          <div
+            class="inline-flex items-center px-4 py-2 mb-6 text-sm font-semibold text-[#fe66c4] border border-[#fe66c4]/30 rounded-full bg-[#fe66c4]/10 backdrop-blur-sm animate-pulse">
+            <span class="mr-2">🚀</span> Disponible pour un nouveau défi
+          </div>
+          <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <span class="gradient-text">Nesrine Ayari</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-300 mb-2">Ingénieure DevOps & Développeuse Full Stack</p>
+          <p class="text-lg text-gray-400 mb-8">Cloud · Virtualisation · Microservices · Automatisation</p>
+          <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+            <button (click)="scrollTo('#contact')"
+              class="group px-8 py-3 bg-gradient-to-r from-[#fe66c4] to-[#7519e4] rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#fe66c4]/30 flex items-center gap-2 cursor-pointer">
+              Me contacter
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </button>
+            <button (click)="scrollTo('#projects')"
+              class="px-8 py-3 border border-white/20 rounded-full font-semibold transition-all duration-300 hover:bg-white/5 hover:border-[#fe66c4] cursor-pointer">
+              Voir mes projets
+            </button>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="relative w-64 h-64 md:w-80 md:h-80">
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-[#fe66c4] to-[#7519e4] rounded-2xl rotate-6 blur-2xl opacity-30 animate-pulse">
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-[#fe66c4] to-[#7519e4] rounded-2xl rotate-3 blur-xl opacity-50">
+            </div>
+            <div
+              class="relative w-full h-full rounded-2xl bg-gradient-to-br from-[#fe66c4]/20 to-[#7519e4]/20 backdrop-blur-xl border border-white/10 flex items-center justify-center overflow-hidden group hover:scale-105 transition-transform duration-500">
+              <div class="relative z-10 text-center p-8">
+                <div class="text-6xl mb-4 animate-float">💻</div>
+                <p class="text-sm text-gray-300 font-medium">DevOps & Full Stack</p>
+                <p class="text-xs text-gray-400 mt-2">3+ ans d'expérience</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+        <div *ngFor="let stat of stats"
+          class="stat-card p-6 text-center bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all duration-300 group hover:scale-105">
+          <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">{{ stat.icon }}</div>
+          <div class="text-3xl font-bold gradient-text">{{ stat.value }}+</div>
+          <div class="text-sm text-gray-400 mt-1">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div class="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center p-1">
+        <div class="w-1 h-2 bg-white/50 rounded-full animate-pulse"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <app-section id="about" title="À propos de moi">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-gray-300 leading-relaxed text-lg">
+          Ingénieure en informatique, spécialisée en
+          <span class="text-[#fe66c4] font-semibold">cloud et virtualisation</span>,
+          avec 3 ans d'expérience en développement et déploiement
+          d'applications web. Passionnée par l'automatisation, les
+          infrastructures scalables et les architectures modernes.
+        </p>
+        <div class="mt-8 space-y-4">
+          <div class="flex items-center gap-4 text-gray-400 group hover:text-white transition-colors">
+            <div
+              class="w-10 h-10 rounded-full bg-[#fe66c4]/10 flex items-center justify-center group-hover:bg-[#fe66c4]/20 transition-colors">
+              <span class="text-[#fe66c4]">📧</span>
+            </div>
+            <a href="mailto:ayari.nessrine3@gmail.com"
+              class="hover:text-[#fe66c4] transition-colors">ayari.nessrine3@gmail.com</a>
+          </div>
+          <div class="flex items-center gap-4 text-gray-400 group hover:text-white transition-colors">
+            <div
+              class="w-10 h-10 rounded-full bg-[#fe66c4]/10 flex items-center justify-center group-hover:bg-[#fe66c4]/20 transition-colors">
+              <span class="text-[#fe66c4]">📱</span>
+            </div>
+            <a href="tel:+21653754023" class="hover:text-[#fe66c4] transition-colors">+216 53 75 40 23</a>
+          </div>
+          <div class="flex items-center gap-4 text-gray-400 group hover:text-white transition-colors">
+            <div
+              class="w-10 h-10 rounded-full bg-[#fe66c4]/10 flex items-center justify-center group-hover:bg-[#fe66c4]/20 transition-colors">
+              <span class="text-[#fe66c4]">📍</span>
+            </div>
+            <span>Beb El Khadra, Tunis</span>
+          </div>
+        </div>
+        <div class="flex gap-4 mt-8">
+          <a href="https://github.com/ayarinesrine" target="_blank"
+            class="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-all hover:scale-110"><span
+              class="text-2xl">🐙</span></a>
+          <a href="https://www.linkedin.com/in/nesrine-ayari-238764226/" target="_blank"
+            class="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-all hover:scale-110"><span
+              class="text-2xl">🔗</span></a>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div
+          *ngFor="let item of [{ label: 'DevOps', icon: '☁️' }, { label: 'Frontend', icon: '⚛️' }, { label: 'Backend', icon: '🟢' }, { label: 'Mobile', icon: '📱' }]"
+          class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group text-center hover:scale-105">
+          <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">{{ item.icon }}</div>
+          <div class="text-sm font-semibold">{{ item.label }}</div>
+        </div>
+      </div>
+    </div>
+  </app-section>
+
+  <!-- Skills -->
+  <app-section id="skills" title="Compétences Techniques">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div *ngFor="let category of skillCategories"
+        class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group hover:scale-[1.02]">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl text-[#fe66c4]">{{ category.icon }}</span>
+          <h3 class="text-xl font-semibold">{{ category.category }}</h3>
+        </div>
+        <div class="space-y-4">
+          <div *ngFor="let skill of category.skills" class="space-y-1">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-xl" [style.color]="skill.color">{{ skill.icon }}</span>
+                <span class="text-sm text-gray-300">{{ skill.name }}</span>
+              </div>
+              <span class="text-xs text-gray-500">{{ getSkillLevel(skill.level || 0) }}</span>
+            </div>
+            <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+              <div class="h-full rounded-full bg-gradient-to-r from-[#fe66c4] to-[#7519e4] transition-all duration-1000"
+                [style.width.%]="skill.level || 0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-section>
+
+  <!-- Experience -->
+  <app-section id="experience" title="Expérience Professionnelle">
+    <div class="space-y-6">
+      <div *ngFor="let exp of experiences"
+        class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group relative hover:scale-[1.01]">
+        <div
+          class="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#fe66c4] to-[#7519e4] rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+        </div>
+        <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
+          <div>
+            <h3 class="text-xl font-semibold group-hover:text-[#fe66c4] transition-colors">{{ exp.title }}</h3>
+            <p class="text-[#fe66c4]">{{ exp.company }}</p>
+          </div>
+          <span class="text-sm text-gray-400 bg-white/5 px-3 py-1 rounded-full whitespace-nowrap">{{ exp.date }}</span>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <span *ngFor="let tech of exp.technologies"
+            class="px-2 py-0.5 text-xs bg-white/5 border border-white/10 rounded-full text-gray-400">{{ tech }}</span>
+        </div>
+        <ul class="mt-4 space-y-2">
+          <li *ngFor="let item of exp.description" class="flex items-start gap-2 text-gray-300 text-sm">
+            <span class="text-[#fe66c4] mt-1">▹</span> {{ item }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </app-section>
+
+  <!-- Formation -->
+  <app-section id="formation" title="Formation">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div *ngFor="let formation of formations"
+        class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group hover:scale-[1.02] text-center">
+        <div class="text-4xl mb-4">🎓</div>
+        <h3 class="text-lg font-semibold group-hover:text-[#fe66c4] transition-colors">{{ formation.title }}</h3>
+        <p class="text-gray-400 text-sm mt-1">{{ formation.school }}</p>
+        <p class="text-gray-500 text-sm">{{ formation.year }}</p>
+        <p class="text-gray-500 text-xs mt-2">{{ formation.description }}</p>
+      </div>
+    </div>
+  </app-section>
+
+  <!-- Languages -->
+  <app-section id="languages" title="Langues">
+    <div class="flex flex-wrap justify-center gap-6">
+      <div *ngFor="let language of languages"
+        class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group hover:scale-105 text-center min-w-[150px]">
+        <div class="text-4xl mb-3">{{ language.flag }}</div>
+        <div class="font-semibold">{{ language.name }}</div>
+        <div class="text-sm text-gray-400">{{ language.level }}</div>
+      </div>
+    </div>
+  </app-section>
+
+  <!-- Projects -->
+  <app-section id="projects" title="Projets Réalisés">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let project of projects"
+        class="group relative p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all overflow-hidden hover:scale-[1.02]">
+        <div
+          class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br {{ project.gradient }} opacity-10 rounded-full blur-3xl group-hover:opacity-30 transition-opacity">
+        </div>
+        <div class="relative z-10">
+          <h3 class="text-xl font-semibold mb-3 group-hover:text-[#fe66c4] transition-colors">{{ project.title }}</h3>
+          <p class="text-gray-400 text-sm mb-4">{{ project.description }}</p>
+          <div class="flex flex-wrap gap-2">
+            <span *ngFor="let tag of project.tags"
+              class="px-3 py-1 text-xs font-medium bg-white/5 border border-white/10 rounded-full text-gray-300 group-hover:border-[#fe66c4]/30 transition-colors">{{
+              tag }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-section>
+
+  <!-- Clients -->
+  <app-section id="clients" title="Ils m'ont fait confiance">
+    <div
+      class="flex flex-wrap justify-center items-center gap-6 p-8 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10">
+      <span *ngFor="let client of clients"
+        class="px-6 py-3 text-sm font-medium text-gray-300 bg-white/5 rounded-full border border-white/10 hover:border-[#fe66c4]/30 hover:text-[#fe66c4] transition-all hover:scale-105 cursor-default">{{
+        client }}</span>
+    </div>
+  </app-section>
+
+  <!-- Contact -->
+  <app-section id="contact" title="Contactez-moi">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-gray-400 mb-8 text-lg">Disponible pour des opportunités professionnelles. N'hésitez pas à me
+        contacter !</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="mailto:ayari.nessrine3@gmail.com"
+          class="group px-8 py-4 bg-white/5 border border-white/10 rounded-full hover:border-[#fe66c4]/50 transition-all flex items-center gap-3 hover:scale-105">
+          <span class="text-2xl text-[#fe66c4] group-hover:scale-110 transition-transform">📧</span>
+          <span>ayari.nessrine3@gmail.com</span>
+        </a>
+        <a href="tel:+21653754023"
+          class="group px-8 py-4 bg-white/5 border border-white/10 rounded-full hover:border-[#fe66c4]/50 transition-all flex items-center gap-3 hover:scale-105">
+          <span class="text-2xl text-[#fe66c4] group-hover:scale-110 transition-transform">📱</span>
+          <span>+216 53 75 40 23</span>
+        </a>
+      </div>
+      <div class="flex justify-center gap-4 mt-8">
+        <a href="https://github.com/ayarinesrine" target="_blank"
+          class="p-4 bg-white/5 rounded-full hover:bg-white/10 transition-all hover:scale-110"><span
+            class="text-3xl">🐙</span></a>
+        <a href="https://www.linkedin.com/in/nesrine-ayari-238764226/" target="_blank"
+          class="p-4 bg-white/5 rounded-full hover:bg-white/10 transition-all hover:scale-110"><span
+            class="text-3xl">🔗</span></a>
+      </div>
+    </div>
+  </app-section>
+
+  <!-- Footer -->
+  <footer class="py-8 border-t border-white/5 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p class="text-gray-500 text-sm">© {{ currentYear }} Nesrine Ayari — Portfolio Angular</p>
+      <p class="text-gray-600 text-xs mt-2">Built with ❤️ using Angular 22 & Tailwind CSS</p>
+    </div>
+  </footer>
+</div>
