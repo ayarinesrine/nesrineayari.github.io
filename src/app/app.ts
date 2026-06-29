@@ -3,24 +3,13 @@ import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { SectionComponent } from './section/section';
 import { Skills } from './components/skills/skills';
+import { About } from './components/about/about';
+import { Hero } from './components/hero/hero';
+import { Experience } from './components/experience/experience';
 
 export interface NavItem {
   name: string;
   href: string;
-}
-
-export interface Stat {
-  value: number;
-  label: string;
-  icon: string;
-}
-
-export interface Experience {
-  title: string;
-  company: string;
-  date: string;
-  description: string[];
-  technologies?: string[];
 }
 
 export interface Project {
@@ -46,7 +35,7 @@ export interface Language {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, SectionComponent, Skills],
+  imports: [CommonModule, SectionComponent, Skills, Hero, About, Experience],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
   animations: [
@@ -122,54 +111,6 @@ export class AppComponent implements OnInit {
     { name: 'Formation', href: '#formation' },
     { name: 'Projets', href: '#projects' },
     { name: 'Contact', href: '#contact' },
-  ];
-
-  // Statistiques
-  stats: Stat[] = [
-    { value: 3, label: "Années d'expérience", icon: '📅' },
-    { value: 15, label: 'Projets livrés', icon: '🚀' },
-    { value: 12, label: 'Clients satisfaits', icon: '⭐' },
-    { value: 8, label: 'Technologies maîtrisées', icon: '💻' },
-  ];
-
-  // Expériences
-  experiences: Experience[] = [
-    {
-      title: 'Ingénieur DevOps',
-      company: 'Sybernetys · Contrat CIVP',
-      date: "Mars 2025 - Aujourd'hui",
-      technologies: ['Docker', 'Kubernetes', 'Traefik', 'OVH'],
-      description: [
-        'Déploiement et gestion de microservices sur VPS avec Docker, Docker Compose et Traefik.',
-        "Supervision et coordination de l'équipe pour assurer qualité et respect des délais.",
-        'Configuration DNS et liaison de domaines sur OVH.',
-        'Optimisation et automatisation des pipelines de déploiement.',
-      ],
-    },
-    {
-      title: 'Développeuse Web',
-      company: 'Sybernetys · Contrat CIVP',
-      date: 'Janvier 2024 - Février 2025',
-      technologies: ['Next.js', 'Node.js', 'JWT', 'Hostinger'],
-      description: [
-        'Développement de sites et applications Next.js avec backend Node.js.',
-        "Conception d'API sécurisées avec JWT et réalisation de tests unitaires.",
-        'Déploiement de sites statiques sur Hostinger avec optimisation SEO.',
-        'Création de sites responsive pour une expérience utilisateur optimale.',
-      ],
-    },
-    {
-      title: 'Développeur Full Stack Freelance',
-      company: 'Karriery',
-      date: 'Janvier - Décembre 2023',
-      technologies: ['React', 'Angular', 'Ionic', 'React Native'],
-      description: [
-        "Création et maintenance d'interfaces web interactives avec React, Angular, HTML et CSS.",
-        "Développement d'applications mobiles avec Ionic et React Native.",
-        "Mise en place d'expériences utilisateur optimisées et responsive design.",
-        "Supervision et coordination de l'équipe pour assurer qualité et respect des délais.",
-      ],
-    },
   ];
 
   // Formations

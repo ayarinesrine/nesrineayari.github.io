@@ -16,8 +16,11 @@
   >
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center gap-3 cursor-pointer" (click)="scrollTo('#home')">
-        <img class="w-28 m-auto h-auto" [src]="isDarkMode ? '/logo-light.png' : '/logo-dark.png'" alt="Logo" />
-      
+        <img
+          class="w-28 m-auto h-auto"
+          [src]="isDarkMode ? '/logo-light.png' : '/logo-dark.png'"
+          alt="Logo"
+        />
       </div>
 
       <div class="hidden md:flex items-center gap-8">
@@ -100,231 +103,16 @@
   </nav>
 
   <!-- Hero -->
-  <section
-    id="home"
-    class="min-h-screen flex items-center justify-center relative overflow-hidden"
-    #hero
-  >
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-[#fe66c4]/20 via-[#7519e4]/20 to-transparent"
-    >
-      <div class="absolute inset-0">
-        <div
-          class="absolute top-1/4 left-1/4 w-96 h-96 bg-[#fe66c4]/10 rounded-full blur-3xl animate-pulse"
-        ></div>
-        <div
-          class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#7519e4]/10 rounded-full blur-3xl animate-pulse"
-          style="animation-delay: 1s"
-        ></div>
-        <div
-          class="absolute top-1/2 left-1/2 w-64 h-64 bg-[#fe66c4]/10 rounded-full blur-3xl animate-pulse"
-          style="animation-delay: 2s"
-        ></div>
-      </div>
-    </div>
-
-    <div class="container mx-auto px-4 relative z-10">
-      <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
-        <div class="flex-1 text-center lg:text-left">
-          <div
-            class="inline-flex items-center px-4 py-2 mb-6 text-sm font-semibold text-[#fe66c4] border border-[#fe66c4]/30 rounded-full bg-[#fe66c4]/10 backdrop-blur-sm animate-pulse"
-          >
-            <span class="mr-2">🚀</span> Disponible pour un nouveau défi
-          </div>
-          <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span class="gradient-text">Nesrine Ayari</span>
-          </h1>
-          <p class="text-xl md:text-2xl text-gray-300 mb-2">
-            Ingénieure DevOps & Développeuse Full Stack
-          </p>
-          <p class="text-lg text-gray-400 mb-8">
-            Cloud · Virtualisation · Microservices · Automatisation
-          </p>
-          <div class="flex flex-wrap justify-center lg:justify-start gap-4">
-            <button
-              (click)="scrollTo('#contact')"
-              class="group px-8 py-3 bg-gradient-to-r from-[#fe66c4] to-[#7519e4] rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#fe66c4]/30 flex items-center gap-2 cursor-pointer"
-            >
-              Me contacter
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </button>
-            <button
-              (click)="scrollTo('#projects')"
-              class="px-8 py-3 border border-white/20 rounded-full font-semibold transition-all duration-300 hover:bg-white/5 hover:border-[#fe66c4] cursor-pointer"
-            >
-              Voir mes projets
-            </button>
-          </div>
-        </div>
-
-        <div class="relative">
-          <div class="relative w-64 h-64 md:w-80 md:h-80">
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-[#fe66c4] to-[#7519e4] rounded-2xl rotate-6 blur-2xl opacity-30 animate-pulse"
-            ></div>
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-[#fe66c4] to-[#7519e4] rounded-2xl rotate-3 blur-xl opacity-50"
-            ></div>
-            <div
-              class="relative w-full h-full rounded-2xl bg-gradient-to-br from-[#fe66c4]/20 to-[#7519e4]/20 backdrop-blur-xl border border-white/10 flex items-center justify-center overflow-hidden group hover:scale-105 transition-transform duration-500"
-            >
-              <div class="relative z-10 text-center p-8">
-                <div class="text-6xl mb-4 animate-float">💻</div>
-                <p class="text-sm text-gray-300 font-medium">DevOps & Full Stack</p>
-                <p class="text-xs text-gray-400 mt-2">3+ ans d'expérience</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
-        <div
-          *ngFor="let stat of stats"
-          class="stat-card p-6 text-center bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all duration-300 group hover:scale-105"
-        >
-          <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">
-            {{ stat.icon }}
-          </div>
-          <div class="text-3xl font-bold gradient-text">{{ stat.value }}+</div>
-          <div class="text-sm text-gray-400 mt-1">{{ stat.label }}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-      <div class="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center p-1">
-        <div class="w-1 h-2 bg-white/50 rounded-full animate-pulse"></div>
-      </div>
-    </div>
-  </section>
+  <app-hero></app-hero>
 
   <!-- About -->
-  <app-section id="about" title="À propos de moi">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <p class="text-gray-300 leading-relaxed text-lg">
-          Ingénieure en informatique, spécialisée en
-          <span class="text-[#fe66c4] font-semibold">cloud et virtualisation</span>, avec 3 ans
-          d'expérience en développement et déploiement d'applications web. Passionnée par
-          l'automatisation, les infrastructures scalables et les architectures modernes.
-        </p>
-        <div class="mt-8 space-y-4">
-          <div
-            class="flex items-center gap-4 text-gray-400 group hover:text-white transition-colors"
-          >
-            <div
-              class="w-10 h-10 rounded-full bg-[#fe66c4]/10 flex items-center justify-center group-hover:bg-[#fe66c4]/20 transition-colors"
-            >
-              <span class="text-[#fe66c4]">📧</span>
-            </div>
-            <a
-              href="mailto:ayari.nessrine3@gmail.com"
-              class="hover:text-[#fe66c4] transition-colors"
-              >ayari.nessrine3@gmail.com</a
-            >
-          </div>
-          <div
-            class="flex items-center gap-4 text-gray-400 group hover:text-white transition-colors"
-          >
-            <div
-              class="w-10 h-10 rounded-full bg-[#fe66c4]/10 flex items-center justify-center group-hover:bg-[#fe66c4]/20 transition-colors"
-            >
-              <span class="text-[#fe66c4]">📱</span>
-            </div>
-            <a href="tel:+21653754023" class="hover:text-[#fe66c4] transition-colors"
-              >+216 53 75 40 23</a
-            >
-          </div>
-          <div
-            class="flex items-center gap-4 text-gray-400 group hover:text-white transition-colors"
-          >
-            <div
-              class="w-10 h-10 rounded-full bg-[#fe66c4]/10 flex items-center justify-center group-hover:bg-[#fe66c4]/20 transition-colors"
-            >
-              <span class="text-[#fe66c4]">📍</span>
-            </div>
-            <span>Beb El Khadra, Tunis</span>
-          </div>
-        </div>
-        <div class="flex gap-4 mt-8">
-          <a
-            href="https://github.com/ayarinesrine"
-            target="_blank"
-            class="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-all hover:scale-110"
-            ><span class="text-2xl">🐙</span></a
-          >
-          <a
-            href="https://www.linkedin.com/in/nesrine-ayari-238764226/"
-            target="_blank"
-            class="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-all hover:scale-110"
-            ><span class="text-2xl">🔗</span></a
-          >
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div
-          *ngFor="
-            let item of [
-              { label: 'DevOps', icon: '☁️' },
-              { label: 'Frontend', icon: '⚛️' },
-              { label: 'Backend', icon: '🟢' },
-              { label: 'Mobile', icon: '📱' },
-            ]
-          "
-          class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group text-center hover:scale-105"
-        >
-          <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">
-            {{ item.icon }}
-          </div>
-          <div class="text-sm font-semibold">{{ item.label }}</div>
-        </div>
-      </div>
-    </div>
-  </app-section>
+  <app-about></app-about>
 
   <!-- Skills -->
   <app-skills></app-skills>
 
   <!-- Experience -->
-  <app-section id="experience" title="Expérience Professionnelle">
-    <div class="space-y-6">
-      <div
-        *ngFor="let exp of experiences"
-        class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group relative hover:scale-[1.01]"
-      >
-        <div
-          class="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#fe66c4] to-[#7519e4] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-        ></div>
-        <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
-          <div>
-            <h3 class="text-xl font-semibold group-hover:text-[#fe66c4] transition-colors">
-              {{ exp.title }}
-            </h3>
-            <p class="text-[#fe66c4]">{{ exp.company }}</p>
-          </div>
-          <span class="text-sm text-gray-400 bg-white/5 px-3 py-1 rounded-full whitespace-nowrap">{{
-            exp.date
-          }}</span>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-3">
-          <span
-            *ngFor="let tech of exp.technologies"
-            class="px-2 py-0.5 text-xs bg-white/5 border border-white/10 rounded-full text-gray-400"
-            >{{ tech }}</span
-          >
-        </div>
-        <ul class="mt-4 space-y-2">
-          <li
-            *ngFor="let item of exp.description"
-            class="flex items-start gap-2 text-gray-300 text-sm"
-          >
-            <span class="text-[#fe66c4] mt-1">▹</span> {{ item }}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </app-section>
+  <app-experience></app-experience>
 
   <!-- Formation -->
   <app-section id="formation" title="Formation">

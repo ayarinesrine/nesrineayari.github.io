@@ -1,1 +1,38 @@
-<p>experience works!</p>
+<app-section id="experience" title="Expérience Professionnelle">
+  <div class="space-y-6">
+    <div
+      *ngFor="let exp of experiences"
+      class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group relative hover:scale-[1.01]"
+    >
+      <div
+        class="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[#fe66c4] to-[#7519e4] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+      ></div>
+      <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
+        <div>
+          <h3 class="text-xl font-semibold group-hover:text-[#fe66c4] transition-colors">
+            {{ exp.title }}
+          </h3>
+          <p class="text-[#fe66c4]">{{ exp.company }}</p>
+        </div>
+        <span class="text-sm text-gray-400 bg-white/5 px-3 py-1 rounded-full whitespace-nowrap">{{
+          exp.date
+        }}</span>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-3">
+        <span
+          *ngFor="let tech of exp.technologies"
+          class="px-2 py-0.5 text-xs bg-white/5 border border-white/10 rounded-full text-gray-400"
+          >{{ tech }}</span
+        >
+      </div>
+      <ul class="mt-4 space-y-2">
+        <li
+          *ngFor="let item of exp.description"
+          class="flex items-start gap-2 text-gray-300 text-sm"
+        >
+          <span class="text-[#fe66c4] mt-1">▹</span> {{ item }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</app-section>
