@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-
+import { SectionComponent } from '../../section/section';
 @Component({
   selector: 'app-contact',
-  imports: [],
+  standalone: true,
+  imports: [SectionComponent],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
 })

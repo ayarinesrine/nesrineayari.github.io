@@ -1,1 +1,11 @@
-<p>clients works!</p>
+<app-section id="clients" title="Ils m'ont fait confiance">
+  <div
+    class="flex flex-wrap justify-center items-center gap-6 p-8 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10"
+  >
+    <span
+      *ngFor="let client of clients"
+      class="px-6 py-3 text-sm font-medium text-gray-300 bg-white/5 rounded-full border border-white/10 hover:border-[#fe66c4]/30 hover:text-[#fe66c4] transition-all hover:scale-105 cursor-default"
+      >{{ client }}</span
+    >
+  </div>
+</app-section>

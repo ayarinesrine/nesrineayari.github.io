@@ -1,29 +1,38 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
-import { SectionComponent } from './section/section';
 import { Skills } from './components/skills/skills';
 import { About } from './components/about/about';
 import { Hero } from './components/hero/hero';
+import { Projects } from './components/projects/projects';
 import { Formation } from './components/formation/formation';
 import { Experience } from './components/experience/experience';
 import { Languages } from './components/languages/languages';
+import { Clients } from './components/clients/clients';
+import { Contact } from './components/contact/contact';
+import { Footer } from './components/footer/footer';
+
 export interface NavItem {
   name: string;
   href: string;
 }
 
-export interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  gradient: string;
-}
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, SectionComponent, Skills, Formation, Hero, About, Experience, Languages],
+  imports: [
+    CommonModule,
+    Skills,
+    Formation,
+    Footer,
+    Hero,
+    Clients,
+    Contact,
+    About,
+    Experience,
+    Languages,
+    Projects,
+  ],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
   animations: [
@@ -87,7 +96,6 @@ export class AppComponent implements OnInit {
   isMenuOpen = false;
   activeSection = 'home';
   isScrolled = false;
-  currentYear = new Date().getFullYear();
   isDarkMode = true;
 
   // Navigation
@@ -99,68 +107,6 @@ export class AppComponent implements OnInit {
     { name: 'Formation', href: '#formation' },
     { name: 'Projets', href: '#projects' },
     { name: 'Contact', href: '#contact' },
-  ];
-
-  // Projets
-  projects: Project[] = [
-    {
-      title: 'Automatisation des déploiements Kubernetes',
-      description:
-        "Mise en place d'une stratégie GitOps pour l'automatisation des déploiements sur un cluster Kubernetes.",
-      tags: ['Kubernetes', 'GitOps', 'CI/CD', 'ArgoCD'],
-      gradient: 'from-blue-500 to-cyan-500',
-    },
-    {
-      title: 'Application Mobile Ionic - Karriery',
-      description:
-        "Conception et développement d'une application mobile de gestion de carrière avec Ionic.",
-      tags: ['Ionic', 'React', 'Mobile', 'Capacitor'],
-      gradient: 'from-pink-500 to-rose-500',
-    },
-    {
-      title: 'API Sécurisée avec JWT',
-      description:
-        "Création d'une API RESTful avec authentification JWT et tests unitaires complets.",
-      tags: ['Node.js', 'JWT', 'API', 'Express'],
-      gradient: 'from-green-500 to-emerald-500',
-    },
-    {
-      title: 'Automatisation des e-mails OVH',
-      description:
-        "Développement d'un outil d'automatisation pour la gestion des e-mails sur l'infrastructure OVH.",
-      tags: ['OVH', 'Python', 'API', 'SMTP'],
-      gradient: 'from-purple-500 to-indigo-500',
-    },
-    {
-      title: 'Déchargeur de batteries - SNCFT',
-      description:
-        "Projet de fin d'études sur l'automatisation d'un système de décharge de batteries.",
-      tags: ['Automatisme', 'Industrie', 'SNCFT', 'PLC'],
-      gradient: 'from-orange-500 to-red-500',
-    },
-    {
-      title: 'Site Vitrine Next.js',
-      description:
-        'Création de sites statiques optimisés SEO avec Next.js et déploiement sur Hostinger.',
-      tags: ['Next.js', 'SEO', 'Hostinger', 'Tailwind'],
-      gradient: 'from-teal-500 to-cyan-500',
-    },
-  ];
-
-  // Clients
-  clients: string[] = [
-    'Inchaate',
-    'AB Pro',
-    'Mes Murs',
-    'Gex Bâtiment',
-    'Enea Home',
-    'Global Reno',
-    'Agexis',
-    'Wellton Consulting',
-    'Finky Consulting',
-    'Open Mur',
-    'Structural Metal',
-    'Mur Mur',
   ];
 
   constructor() {}
