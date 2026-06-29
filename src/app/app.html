@@ -102,49 +102,13 @@
     </div>
   </nav>
 
-  <!-- Hero -->
+ 
   <app-hero></app-hero>
-
-  <!-- About -->
   <app-about></app-about>
-
-  <!-- Skills -->
   <app-skills></app-skills>
-
-  <!-- Experience -->
   <app-experience></app-experience>
-
-  <!-- Formation -->
-  <app-section id="formation" title="Formation">
-    <div class="grid md:grid-cols-3 gap-6">
-      <div
-        *ngFor="let formation of formations"
-        class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group hover:scale-[1.02] text-center"
-      >
-        <div class="text-4xl mb-4">🎓</div>
-        <h3 class="text-lg font-semibold group-hover:text-[#fe66c4] transition-colors">
-          {{ formation.title }}
-        </h3>
-        <p class="text-gray-400 text-sm mt-1">{{ formation.school }}</p>
-        <p class="text-gray-500 text-sm">{{ formation.year }}</p>
-        <p class="text-gray-500 text-xs mt-2">{{ formation.description }}</p>
-      </div>
-    </div>
-  </app-section>
-
-  <!-- Languages -->
-  <app-section id="languages" title="Langues">
-    <div class="flex flex-wrap justify-center gap-6">
-      <div
-        *ngFor="let language of languages"
-        class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group hover:scale-105 text-center min-w-[150px]"
-      >
-        <div class="text-4xl mb-3">{{ language.flag }}</div>
-        <div class="font-semibold">{{ language.name }}</div>
-        <div class="text-sm text-gray-400">{{ language.level }}</div>
-      </div>
-    </div>
-  </app-section>
+  <app-formation></app-formation>
+  <app-languages></app-languages>
 
   <!-- Projects -->
   <app-section id="projects" title="Projets Réalisés">

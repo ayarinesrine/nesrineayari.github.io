@@ -5,8 +5,9 @@ import { SectionComponent } from './section/section';
 import { Skills } from './components/skills/skills';
 import { About } from './components/about/about';
 import { Hero } from './components/hero/hero';
+import { Formation } from './components/formation/formation';
 import { Experience } from './components/experience/experience';
-
+import { Languages } from './components/languages/languages';
 export interface NavItem {
   name: string;
   href: string;
@@ -19,23 +20,10 @@ export interface Project {
   gradient: string;
 }
 
-export interface Formation {
-  title: string;
-  school: string;
-  year: string;
-  description?: string;
-}
-
-export interface Language {
-  name: string;
-  level: string;
-  flag: string;
-}
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, SectionComponent, Skills, Hero, About, Experience],
+  imports: [CommonModule, SectionComponent, Skills, Formation, Hero, About, Experience, Languages],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
   animations: [
@@ -113,28 +101,6 @@ export class AppComponent implements OnInit {
     { name: 'Contact', href: '#contact' },
   ];
 
-  // Formations
-  formations: Formation[] = [
-    {
-      title: "Diplôme d'ingénieur en génie informatique",
-      school: 'iTeam University',
-      year: '2024/2025',
-      description: 'Spécialité : Cloud Computing et Virtualisation',
-    },
-    {
-      title: 'Licence en génie électrique',
-      school: 'ISET Siliana',
-      year: '2021/2022',
-      description: 'Spécialité : Automatisme et informatique industrielle',
-    },
-    {
-      title: 'Baccalauréat',
-      school: 'Lycée Beb El Khadra',
-      year: '2017/2018',
-      description: 'Spécialité : technique',
-    },
-  ];
-
   // Projets
   projects: Project[] = [
     {
@@ -179,14 +145,6 @@ export class AppComponent implements OnInit {
       tags: ['Next.js', 'SEO', 'Hostinger', 'Tailwind'],
       gradient: 'from-teal-500 to-cyan-500',
     },
-  ];
-
-  // Langues
-  languages: Language[] = [
-    { name: 'Arabe', level: 'Langue maternelle', flag: '🇹🇳' },
-    { name: 'Français', level: 'Niveau B2', flag: '🇫🇷' },
-    { name: 'Anglais', level: 'Niveau B1', flag: '🇬🇧' },
-    { name: 'Allemand', level: 'Niveau A1', flag: '🇩🇪' },
   ];
 
   // Clients
