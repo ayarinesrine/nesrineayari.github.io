@@ -284,36 +284,7 @@
   </app-section>
 
   <!-- Skills -->
-  <app-section id="skills" title="Compétences Techniques">
-    <div class="grid md:grid-cols-3 gap-6">
-      <div
-        *ngFor="let category of skillCategories"
-        class="p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-[#fe66c4]/30 transition-all group hover:scale-[1.02]"
-      >
-        <div class="flex items-center gap-3 mb-6">
-          <span class="text-3xl text-[#fe66c4]">{{ category.icon }}</span>
-          <h3 class="text-xl font-semibold">{{ category.category }}</h3>
-        </div>
-        <div class="space-y-4">
-          <div *ngFor="let skill of category.skills" class="space-y-1">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-xl" [style.color]="skill.color">{{ skill.icon }}</span>
-                <span class="text-sm text-gray-300">{{ skill.name }}</span>
-              </div>
-              <span class="text-xs text-gray-500">{{ getSkillLevel(skill.level || 0) }}</span>
-            </div>
-            <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <div
-                class="h-full rounded-full bg-gradient-to-r from-[#fe66c4] to-[#7519e4] transition-all duration-1000"
-                [style.width.%]="skill.level || 0"
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </app-section>
+  <app-skills></app-skills>
 
   <!-- Experience -->
   <app-section id="experience" title="Expérience Professionnelle">

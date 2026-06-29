@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { SectionComponent } from './section/section';
+import { Skills } from './components/skills/skills';
 
 export interface NavItem {
   name: string;
@@ -12,19 +13,6 @@ export interface Stat {
   value: number;
   label: string;
   icon: string;
-}
-
-export interface Skill {
-  name: string;
-  icon: string;
-  color: string;
-  level?: number;
-}
-
-export interface SkillCategory {
-  category: string;
-  icon: string;
-  skills: Skill[];
 }
 
 export interface Experience {
@@ -58,7 +46,7 @@ export interface Language {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, SectionComponent],
+  imports: [CommonModule, SectionComponent, Skills],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
   animations: [
@@ -142,43 +130,6 @@ export class AppComponent implements OnInit {
     { value: 15, label: 'Projets livrés', icon: '🚀' },
     { value: 12, label: 'Clients satisfaits', icon: '⭐' },
     { value: 8, label: 'Technologies maîtrisées', icon: '💻' },
-  ];
-
-  // Compétences
-  skillCategories: SkillCategory[] = [
-    {
-      category: 'DevOps & Cloud',
-      icon: '☁️',
-      skills: [
-        { name: 'Docker', icon: '🐳', color: '#2496ED', level: 90 },
-        { name: 'Kubernetes', icon: '⚓', color: '#326CE5', level: 85 },
-        { name: 'AWS', icon: '☁️', color: '#FF9900', level: 80 },
-        { name: 'Terraform', icon: '🏗️', color: '#7B42BC', level: 75 },
-        { name: 'GitLab CI/CD', icon: '🦊', color: '#FC6D26', level: 85 },
-      ],
-    },
-    {
-      category: 'Frontend & Mobile',
-      icon: '⚛️',
-      skills: [
-        { name: 'React', icon: '⚛️', color: '#61DAFB', level: 90 },
-        { name: 'Next.js', icon: '▲', color: '#000000', level: 85 },
-        { name: 'Angular', icon: '🅰️', color: '#DD0031', level: 80 },
-        { name: 'Ionic', icon: '📱', color: '#3880FF', level: 75 },
-        { name: 'Tailwind', icon: '🎨', color: '#06B6D4', level: 90 },
-      ],
-    },
-    {
-      category: 'Backend & BDD',
-      icon: '🗄️',
-      skills: [
-        { name: 'Node.js', icon: '🟢', color: '#339933', level: 85 },
-        { name: 'JavaScript', icon: '📜', color: '#F7DF1E', level: 90 },
-        { name: 'TypeScript', icon: '📘', color: '#3178C6', level: 85 },
-        { name: 'MongoDB', icon: '🍃', color: '#47A248', level: 80 },
-        { name: 'PostgreSQL', icon: '🐘', color: '#4169E1', level: 75 },
-      ],
-    },
   ];
 
   // Expériences
@@ -374,14 +325,6 @@ export class AppComponent implements OnInit {
   toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
     document.body.classList.toggle('light-mode');
-  }
-
-  getSkillLevel(level: number): string {
-    const levels = ['Débutant', 'Intermédiaire', 'Avancé', 'Expert'];
-    if (level >= 90) return levels[3];
-    if (level >= 70) return levels[2];
-    if (level >= 40) return levels[1];
-    return levels[0];
   }
 }
 
