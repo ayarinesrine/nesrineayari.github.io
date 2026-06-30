@@ -1,10 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+// app.ts
+import { Component, HostListener, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { Navigation } from './components/navigation/navigation';
 import { Footer } from './components/footer/footer';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './services/theme';
+import { SmokeyCursorComponent } from './components/smokey-cursor/smokey-cursor';
 
 export interface NavItem {
   name: string;
@@ -14,7 +16,7 @@ export interface NavItem {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, Navigation, Footer, RouterOutlet],
+  imports: [CommonModule, Navigation, Footer, RouterOutlet, SmokeyCursorComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
   animations: [
@@ -73,15 +75,23 @@ export interface NavItem {
     ]),
   ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   isMenuOpen = false;
   activeSection = 'home';
   isScrolled = false;
   isDarkMode = true;
+  cursorEnabled = true;
+
+  @ViewChild('cursorRef') cursorComponent!: SmokeyCursorComponent;
 
   constructor(public theme: ThemeService) {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit() {
+    // ✅ Vérifier que le composant est chargé
+    console.log('✅ AppComponent: cursorComponent chargé:', !!this.cursorComponent);
+  }
 
   @HostListener('window:scroll')
   onScroll(): void {
@@ -108,6 +118,18 @@ export class AppComponent implements OnInit {
   toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
     document.body.classList.toggle('light-mode');
+
+    if (this.cursorComponent) {
+      const color = this.isDarkMode ? 'rgba(120, 180, 255, 0.6)' : 'rgba(255, 100, 150, 0.6)';
+      this.cursorComponent.setColor(color);
+    }
+  }
+
+  toggleCursor(): void {
+    this.cursorEnabled = !this.cursorEnabled;
+    if (this.cursorComponent) {
+      this.cursorComponent.toggle(this.cursorEnabled);
+    }
   }
 }
 

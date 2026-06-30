@@ -1,6 +1,6 @@
 import 'zone.js';
 import { bootstrapApplication } from '@angular/platform-browser';
-
+import 'resize-observer-polyfill';
 import AppComponent from './app/app';
 import { mergeApplicationConfig } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
