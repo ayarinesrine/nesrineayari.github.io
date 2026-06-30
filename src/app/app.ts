@@ -1,16 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
-import { Skills } from './components/skills/skills';
-import { About } from './components/about/about';
-import { Hero } from './components/hero/hero';
-import { Projects } from './components/projects/projects';
-import { Formation } from './components/formation/formation';
-import { Experience } from './components/experience/experience';
-import { Languages } from './components/languages/languages';
-import { Clients } from './components/clients/clients';
-import { Contact } from './components/contact/contact';
+import { Navigation } from './components/navigation/navigation';
 import { Footer } from './components/footer/footer';
+import { RouterOutlet } from '@angular/router';
+import { ThemeService } from './services/theme';
 
 export interface NavItem {
   name: string;
@@ -20,19 +14,7 @@ export interface NavItem {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
-    Skills,
-    Formation,
-    Footer,
-    Hero,
-    Clients,
-    Contact,
-    About,
-    Experience,
-    Languages,
-    Projects,
-  ],
+  imports: [CommonModule, Navigation, Footer, RouterOutlet],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
   animations: [
@@ -92,28 +74,14 @@ export interface NavItem {
   ],
 })
 export class AppComponent implements OnInit {
-  // États
   isMenuOpen = false;
   activeSection = 'home';
   isScrolled = false;
   isDarkMode = true;
 
-  // Navigation
-  navItems: NavItem[] = [
-    { name: 'Accueil', href: '#home' },
-    { name: 'À propos', href: '#about' },
-    { name: 'Compétences', href: '#skills' },
-    { name: 'Expérience', href: '#experience' },
-    { name: 'Formation', href: '#formation' },
-    { name: 'Projets', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  constructor(public theme: ThemeService) {}
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.observeSections();
-  }
+  ngOnInit(): void {}
 
   @HostListener('window:scroll')
   onScroll(): void {
@@ -121,9 +89,7 @@ export class AppComponent implements OnInit {
   }
 
   @HostListener('window:resize')
-  onResize(): void {
-    // Gestion responsive
-  }
+  onResize(): void {}
 
   scrollTo(sectionId: string): void {
     this.isMenuOpen = false;
@@ -135,34 +101,6 @@ export class AppComponent implements OnInit {
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth',
-      });
-    }
-  }
-
-  private observeSections(): void {
-    if (typeof IntersectionObserver !== 'undefined') {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const sectionId = entry.target.id;
-              if (sectionId) {
-                const navItem = this.navItems.find((item) => item.href === '#' + sectionId);
-                if (navItem) {
-                  this.activeSection = navItem.name.toLowerCase();
-                }
-              }
-            }
-          });
-        },
-        { threshold: 0.3, rootMargin: '-50px 0px -50px 0px' },
-      );
-
-      this.navItems.forEach((item) => {
-        const element = document.querySelector(item.href);
-        if (element) {
-          observer.observe(element);
-        }
       });
     }
   }

@@ -1,8 +1,14 @@
 import 'zone.js';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import AppComponent from './app/app';
 
-bootstrapApplication(AppComponent, {
-  providers: [provideAnimations()],
-}).catch((err) => console.error(err));
+import AppComponent from './app/app';
+import { mergeApplicationConfig } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { appConfig } from './app/app.config';
+
+bootstrapApplication(
+  AppComponent,
+  mergeApplicationConfig(appConfig, {
+    providers: [provideAnimations()],
+  }),
+).catch(console.error);
