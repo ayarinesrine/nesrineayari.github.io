@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+$primary-pink: #f263c0;
+$primary-purple: #d752d9;
+$primary-dark-purple: #9632d9;
+$primary-deep-purple: #140d1e;
+$white: #f2f2f2;
+
+$glass-bg: rgba(255, 255, 255, 0.05);
+$glass-border: rgba(255, 255, 255, 0.2);
+$shadow-light: rgba(255, 255, 255, 0.05);
+$shadow-dark: rgba(0, 0, 0, 0.7);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 20px;
+  background: $primary-deep-purple;
+}
+
+section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper .container-01 {
+  position: relative;
+  width: 50%;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: $primary-deep-purple;
+}
+
+.wrapper .container-01::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient($primary-pink, $primary-purple);
+  clip-path: circle(22% at 28% 15%);
+}
+
+.wrapper .container-01::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient($white, $primary-dark-purple);
+  clip-path: circle(22% at 78% 80%);
+}
+
+.wrapper .container-01 .clock {
+  width: 350px;
+  height: 350px;
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background: $glass-bg;
+  border: 4px solid $primary-deep-purple;
+  border-radius: 50%;
+  backdrop-filter: blur(15px);
+  border-top: 1px solid $glass-border;
+  border-left: 1px solid $glass-border;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper .container-01 .clock:before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: $primary-pink;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 20px $primary-pink;
+}
+
+.wrapper .container-01 .clock .hour,
+.wrapper .container-01 .clock .min,
+.wrapper .container-01 .clock .sec {
+  position: absolute;
+}
+
+.wrapper .container-01 .clock .hour,
+.hr {
+  width: 160px;
+  height: 160px;
+}
+
+.wrapper .container-01 .clock .min,
+.mn {
+  width: 190px;
+  height: 190px;
+}
+
+.wrapper .container-01 .clock .sec,
+.sc {
+  width: 230px;
+  height: 230px;
+}
+
+.wrapper .container-01 .clock .hour .hr,
+.wrapper .container-01 .clock .min .mn,
+.wrapper .container-01 .clock .sec .sc {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.wrapper .container-01 .clock .hour .hr:before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 80px;
+  background: $primary-pink;
+  opacity: 0.8;
+  z-index: 9;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 0 15px $primary-pink;
+}
+
+.wrapper .container-01 .clock .min .mn:before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 90px;
+  background: $white;
+  opacity: 0.8;
+  z-index: 10;
+  border-radius: 6px 6px 0 0;
+}
+
+.wrapper .container-01 .clock .sec .sc:before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 150px;
+  background: $primary-dark-purple;
+  z-index: 12;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 0 10px $primary-dark-purple;
+}
+
+.wrapper .container-01 .clock .indicators {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper .container-01 .clock .indicators div {
+  position: absolute;
+  width: 2px;
+  height: 5px;
+  background: $primary-purple;
+  user-select: none;
+  cursor: none;
+  border-bottom: 1px solid $glass-border;
+  border-left: 1px solid $glass-border;
+}
+
+@mixin indicator-style($rotation, $translateY) {
+  transform: rotate(#{$rotation}deg) translateY(#{$translateY}px);
+}
+
+.wrapper .container-01 .clock .indicators {
+  div {
+    &:nth-child(1) {
+      @include indicator-style(30, -150);
+    }
+    &:nth-child(2) {
+      @include indicator-style(60, -150);
+    }
+    &:nth-child(3) {
+      @include indicator-style(90, -150);
+      background: $primary-dark-purple;
+      &:before {
+        content: '3';
+        font-weight: 700;
+        position: absolute;
+        transform: rotate(-90deg) translate(-10px, -4px);
+        font-size: 20px;
+        color: rgba($white, 0.3);
+      }
+    }
+    &:nth-child(4) {
+      @include indicator-style(120, -150);
+    }
+    &:nth-child(5) {
+      @include indicator-style(150, -150);
+    }
+    &:nth-child(6) {
+      @include indicator-style(180, -150);
+      background: $primary-dark-purple;
+      &:before {
+        content: '6';
+        font-weight: 700;
+        position: absolute;
+        transform: rotate(180deg) translate(6px, -10px);
+        font-size: 20px;
+        color: rgba($white, 0.3);
+      }
+    }
+    &:nth-child(7) {
+      @include indicator-style(210, -150);
+    }
+    &:nth-child(8) {
+      @include indicator-style(240, -150);
+    }
+    &:nth-child(9) {
+      @include indicator-style(270, -150);
+      background: $primary-dark-purple;
+      &:before {
+        content: '9';
+        font-weight: 700;
+        position: absolute;
+        transform: rotate(90deg) translate(8px, 2px);
+        font-size: 20px;
+        color: rgba($white, 0.3);
+      }
+    }
+    &:nth-child(10) {
+      @include indicator-style(300, -150);
+    }
+    &:nth-child(11) {
+      @include indicator-style(330, -150);
+    }
+    &:nth-child(12) {
+      @include indicator-style(360, -150);
+      background: $primary-dark-purple;
+      opacity: 0.5;
+      &:before {
+        content: '12';
+        font-weight: 700;
+        position: absolute;
+        transform: rotate(0deg) translate(-8px, 10px);
+        font-size: 20px;
+        color: rgba($white, 0.3);
+      }
+    }
+  }
+}
+
+.wrapper .container-01 p {
+  z-index: 12;
+  margin: 20px auto 10px;
+  position: relative;
+  color: $white;
+
+  span {
+    font-weight: 700;
+    color: $primary-pink;
+  }
+}

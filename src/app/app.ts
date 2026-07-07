@@ -88,10 +88,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit() {
-    // ✅ Vérifier que le composant est chargé
-    console.log('✅ AppComponent: cursorComponent chargé:', !!this.cursorComponent);
-  }
+  ngAfterViewInit() {}
 
   @HostListener('window:scroll')
   onScroll(): void {
@@ -122,13 +119,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.cursorComponent) {
       const color = this.isDarkMode ? 'rgba(120, 180, 255, 0.6)' : 'rgba(255, 100, 150, 0.6)';
       this.cursorComponent.setColor(color);
-    }
-  }
-
-  toggleCursor(): void {
-    this.cursorEnabled = !this.cursorEnabled;
-    if (this.cursorComponent) {
-      this.cursorComponent.toggle(this.cursorEnabled);
     }
   }
 }
