@@ -1,0 +1,253 @@
+<!-- pages/project-detail/project-detail.html -->
+<div class="min-h-screen pt-40 py-16 px-4 md:px-8">
+  <!-- Bouton retour -->
+  <div class="max-w-6xl mx-auto mb-6">
+    <button
+      (click)="goBack()"
+      class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors glass px-4 py-2 rounded-xl"
+    >
+      ← Retour aux projets
+    </button>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="isLoading" class="flex justify-center items-center h-96">
+    <div
+      class="animate-spin rounded-full h-16 w-16 border-4 border-pink-500 border-t-transparent"
+    ></div>
+  </div>
+
+  <!-- Détails du projet -->
+  <div *ngIf="!isLoading && project" class="max-w-6xl mx-auto">
+    <!-- En-tête -->
+    <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <span
+              class="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r {{
+                getCategoryColor(project.category)
+              }} text-white"
+            >
+              {{ getCategoryIcon(project.category) }} {{ project.category }}
+            </span>
+            <span class="px-3 py-1 rounded-full glass text-xs font-bold text-gray-300">
+              {{ project.year }}
+            </span>
+          </div>
+          <h1 class="text-3xl md:text-5xl font-extrabold gradient-text mb-3">
+            {{ project.title }}
+          </h1>
+          <p class="text-gray-400 text-lg max-w-2xl">
+            {{ project.description }}
+          </p>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="flex flex-wrap gap-3">
+          <button
+            *ngIf="project.demoUrl"
+            (click)="openLink(project.demoUrl, $event)"
+            class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+          >
+            🔗 Voir le site
+          </button>
+          <button
+            *ngIf="project.githubUrl"
+            (click)="openLink(project.githubUrl, $event)"
+            class="px-6 py-3 glass-hover rounded-xl font-semibold"
+          >
+            💻 Code source
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Galerie d'images -->
+    <div
+      *ngIf="project.screenshots && project.screenshots.length > 0"
+      class="glass rounded-2xl p-6 md:p-8 mb-8"
+    >
+      <h2 class="text-2xl font-bold mb-4">📸 Captures d'écran</h2>
+
+      <div class="relative">
+        <!-- Image principale -->
+        <div
+          class="relative overflow-hidden rounded-xl cursor-pointer group"
+          (click)="toggleZoom()"
+        >
+          <img
+            [src]="project.screenshots[currentImageIndex]"
+            [alt]="project.title"
+            class="w-full h-auto max-h-[500px] object-contain bg-black/20 rounded-xl transition-transform duration-300"
+            [class.scale-150]="isZoomed"
+          />
+          <div
+            class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center"
+          >
+            <span
+              class="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm glass px-4 py-2 rounded-full"
+            >
+              🔍 Cliquer pour zoomer
+            </span>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div *ngIf="project.screenshots.length > 1" class="flex items-center justify-between mt-4">
+          <button
+            (click)="prevImage()"
+            [disabled]="currentImageIndex === 0"
+            class="px-4 py-2 glass rounded-xl hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            ← Précédent
+          </button>
+          <span class="text-gray-400 text-sm">
+            {{ currentImageIndex + 1 }} / {{ project.screenshots.length }}
+          </span>
+          <button
+            (click)="nextImage()"
+            [disabled]="currentImageIndex === project.screenshots.length - 1"
+            class="px-4 py-2 glass rounded-xl hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            Suivant →
+          </button>
+        </div>
+
+        <!-- Miniatures -->
+        <div *ngIf="project.screenshots.length > 1" class="flex gap-2 mt-4 overflow-x-auto pb-2">
+          <img
+            *ngFor="let screenshot of project.screenshots; let i = index"
+            [src]="screenshot"
+            (click)="currentImageIndex = i"
+            class="w-20 h-20 object-cover rounded-lg cursor-pointer transition-all hover:scale-105"
+            [class.border-2]="i === currentImageIndex"
+            [class.border-pink-500]="i === currentImageIndex"
+            [class.opacity-50]="i !== currentImageIndex"
+            [alt]="'Capture ' + (i + 1)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Informations détaillées -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Description -->
+      <div class="lg:col-span-2 space-y-8">
+        <div *ngIf="project.longDescription" class="glass rounded-2xl p-6 md:p-8">
+          <h2 class="text-2xl font-bold mb-4">📝 Description</h2>
+          <p class="text-gray-300 leading-relaxed">
+            {{ project.longDescription }}
+          </p>
+        </div>
+
+        <!-- Fonctionnalités -->
+        <div
+          *ngIf="project.features && project.features.length > 0"
+          class="glass rounded-2xl p-6 md:p-8"
+        >
+          <h2 class="text-2xl font-bold mb-4">⚡ Fonctionnalités principales</h2>
+          <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <li
+              *ngFor="let feature of project.features"
+              class="flex items-start gap-2 text-gray-300"
+            >
+              <span class="text-pink-400 mt-1">✦</span>
+              {{ feature }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Défis -->
+        <div
+          *ngIf="project.challenges && project.challenges.length > 0"
+          class="glass rounded-2xl p-6 md:p-8"
+        >
+          <h2 class="text-2xl font-bold mb-4">🎯 Défis relevés</h2>
+          <ul class="space-y-3">
+            <li
+              *ngFor="let challenge of project.challenges"
+              class="flex items-start gap-2 text-gray-300"
+            >
+              <span class="text-purple-400 mt-1">▸</span>
+              {{ challenge }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sidebar informations -->
+      <div class="space-y-6">
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-lg font-bold mb-4">📊 Informations</h3>
+          <div class="space-y-3">
+            <div *ngIf="project.client">
+              <p class="text-gray-400 text-sm">Client</p>
+              <p class="text-white font-medium">{{ project.client }}</p>
+            </div>
+            <div *ngIf="project.duration">
+              <p class="text-gray-400 text-sm">Durée</p>
+              <p class="text-white font-medium">{{ project.duration }}</p>
+            </div>
+            <div *ngIf="project.team">
+              <p class="text-gray-400 text-sm">Équipe</p>
+              <p class="text-white font-medium">{{ project.team }}</p>
+            </div>
+            <div>
+              <p class="text-gray-400 text-sm">Année</p>
+              <p class="text-white font-medium">{{ project.year }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-lg font-bold mb-4">🛠️ Technologies</h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              *ngFor="let tech of project.technologies"
+              class="px-3 py-1 text-xs rounded-full glass text-gray-300"
+            >
+              {{ tech }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Liens supplémentaires -->
+        <div *ngIf="project.demoUrl || project.githubUrl" class="glass rounded-2xl p-6">
+          <h3 class="text-lg font-bold mb-4">🔗 Liens</h3>
+          <div class="space-y-3">
+            <a
+              *ngIf="project.demoUrl"
+              [href]="project.demoUrl"
+              target="_blank"
+              class="flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors"
+            >
+              🌐 Site en ligne
+            </a>
+            <a
+              *ngIf="project.githubUrl"
+              [href]="project.githubUrl"
+              target="_blank"
+              class="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors"
+            >
+              💻 Code source
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projet non trouvé -->
+  <div *ngIf="!isLoading && !project" class="text-center py-16">
+    <div class="text-6xl mb-4">😕</div>
+    <h3 class="text-2xl font-bold text-gray-400">Projet non trouvé</h3>
+    <p class="text-gray-500 mt-2">Le projet que vous recherchez n'existe pas</p>
+    <button
+      (click)="goBack()"
+      class="mt-4 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+    >
+      Retour aux projets
+    </button>
+  </div>
+</div>
