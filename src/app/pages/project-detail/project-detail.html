@@ -1,7 +1,7 @@
 <!-- pages/project-detail/project-detail.html -->
 <div class="min-h-screen pt-40 py-16 px-4 md:px-8">
   <!-- Bouton retour -->
-  <div class="max-w-6xl mx-auto mb-6">
+  <div class="mx-auto mb-6">
     <button
       (click)="goBack()"
       class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors glass px-4 py-2 rounded-xl"
@@ -18,7 +18,7 @@
   </div>
 
   <!-- Détails du projet -->
-  <div *ngIf="!isLoading && project" class="max-w-6xl mx-auto">
+  <div *ngIf="!isLoading && project" class="mx-auto">
     <!-- En-tête -->
     <div class="glass rounded-2xl p-6 md:p-8 mb-8">
       <div class="flex flex-wrap items-start justify-between gap-4">
@@ -38,7 +38,7 @@
           <h1 class="text-3xl md:text-5xl font-extrabold gradient-text mb-3">
             {{ project.title }}
           </h1>
-          <p class="text-gray-400 text-lg max-w-2xl">
+          <p class="text-gray-400 text-lg">
             {{ project.description }}
           </p>
         </div>

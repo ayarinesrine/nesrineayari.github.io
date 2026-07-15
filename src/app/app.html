@@ -1,10 +1,8 @@
-<!-- app.html -->
 <div
   class="min-h-screen text-white overflow-x-hidden"
   [class.dark-mode]="theme.isDarkMode()"
   [class.light-mode]="!theme.isDarkMode()"
 >
-  <!-- ✅ Utilisation de #cursorRef pour ViewChild -->
   <app-smokey-cursor #cursorRef></app-smokey-cursor>
 
   <app-navigation></app-navigation>

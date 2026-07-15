@@ -1,17 +1,17 @@
 <!-- pages/project/project.html -->
-<div class="min-h-screen py-16 px-4 md:px-8">
+<div class="min-h-screen py-16 px-4 pt-40">
   <!-- Header -->
   <div class="text-center mb-12">
     <h1 class="text-5xl md:text-7xl font-extrabold gradient-text mb-4 animate-float">
       Mes Projets
     </h1>
-    <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+    <p class="text-gray-400 text-lg mx-auto">
       {{ filteredProjects.length }} projets développés avec passion
     </p>
   </div>
 
   <!-- Layout principal -->
-  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+  <div class="mx-auto w-defaultwidth flex flex-col lg:flex-row gap-8">
     <!-- SECTION FILTRES -->
     <div class="lg:w-80 xl:w-96 flex-shrink-0">
       <div class="sticky top-24 space-y-4">
@@ -118,7 +118,7 @@
     <!-- SECTION PROJETS -->
     <div class="flex-1">
       <!-- Grille des projets - PAS DE LOADER -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
         <div
           *ngFor="let project of filteredProjects"
           class="glass rounded-2xl overflow-hidden hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
@@ -184,14 +184,12 @@
                 (click)="openLink(project.demoUrl, $event)"
                 class="flex-1 px-4 py-2 text-sm bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl font-semibold hover:opacity-90 transition-opacity"
               >
-                🔗 Voir le site
+                Voir le site
               </button>
               <button
-                *ngIf="project.githubUrl"
-                (click)="openLink(project.githubUrl, $event)"
-                class="flex-1 px-4 py-2 text-sm glass-hover rounded-xl font-semibold"
+                class="flex-1 px-4 py-2 text-sm border border-white/20 glass-hover rounded-xl font-semibold"
               >
-                💻 Code
+                voir plus
               </button>
             </div>
           </div>

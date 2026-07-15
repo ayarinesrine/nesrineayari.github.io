@@ -11,6 +11,9 @@ module.exports = {
           dark: '#8f7cb6',
         },
       },
+      width: {
+        defaultwidth: '90%',
+      },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
       },
