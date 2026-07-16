@@ -16,7 +16,6 @@ export class ProjectDetail implements OnInit {
   project: IProject | null = null;
   isLoading: boolean = true;
   currentImageIndex: number = 0;
-  isZoomed: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -76,11 +75,6 @@ export class ProjectDetail implements OnInit {
     if (this.project?.screenshots && this.currentImageIndex > 0) {
       this.currentImageIndex--;
     }
-  }
-
-  // Zoom sur l'image
-  toggleZoom() {
-    this.isZoomed = !this.isZoomed;
   }
 
   // Ouvrir un lien externe

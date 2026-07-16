@@ -32,23 +32,15 @@
             <!-- Image principale -->
             <div
               class="relative overflow-hidden rounded-xl cursor-pointer group"
-              (click)="toggleZoom()"
+            
             >
               <img
                 [src]="project.screenshots[currentImageIndex]"
                 [alt]="project.title"
                 class="w-full h-auto max-h-[500px] object-contain bg-black/20 rounded-xl transition-transform duration-300"
-                [class.scale-150]="isZoomed"
+               
               />
-              <div
-                class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center"
-              >
-                <span
-                  class="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm glass px-4 py-2 rounded-full"
-                >
-                  🔍 Cliquer pour zoomer
-                </span>
-              </div>
+              
             </div>
 
             <!-- Navigation -->
