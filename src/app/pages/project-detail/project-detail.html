@@ -3,7 +3,7 @@
   <div class="mx-auto mb-6">
     <button
       (click)="goBack()"
-      class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors glass px-4 py-2 rounded-xl"
+      class="flex items-center gap-2 text-gray-400 sm:text-base text-sm hover:text-white transition-colors glass px-4 py-2 rounded-xl"
     >
       ← Retour aux projets
     </button>
@@ -41,7 +41,7 @@
               <h1 class="2xl:text-3xl text-xl font-extrabold  gradient-text my-4">
                 {{ project.title }}
               </h1>
-              <p class="text-gray-400 ">
+              <p class="text-gray-400 sm:text-base text-sm ">
                 {{ project.description }}
               </p>
             </div>
@@ -72,15 +72,15 @@
             <div class="space-y-3">
               <div *ngIf="project.client">
                 <p class="text-white  pb-1">Client</p>
-                <p class="text-gray-400 font-medium">{{ project.client }}</p>
+                <p class="text-gray-400 sm:text-base text-sm font-medium">{{ project.client }}</p>
               </div>
               <div *ngIf="project.duration">
                 <p class="text-white  pb-1">Durée</p>
-                <p class="text-gray-400 font-medium">{{ project.duration }}</p>
+                <p class="text-gray-400 sm:text-base text-sm font-medium">{{ project.duration }}</p>
               </div>
               <div *ngIf="project.team">
                 <p class="text-white  pb-1">Équipe</p>
-                <p class="text-gray-400 font-medium">{{ project.team }}</p>
+                <p class="text-gray-400 sm:text-base text-sm font-medium">{{ project.team }}</p>
               </div>
            
             </div>
@@ -88,10 +88,10 @@
 
           <div class="glass rounded-2xl p-6">
             <h3 class="xl:text-2xl text-xl font-bold mb-4"> Technologies</h3>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex  flex-wrap gap-2">
               <span
-                *ngFor="let tech of project.technologies"
-                class="px-3 py-1 text-xs rounded-full glass text-gray-300"
+                *ngFor="let  tech of project.technologies"
+                class="px-3  sm:text-base text-sm  py-1  rounded-full glass text-gray-300"
               >
                 {{ tech }}
               </span>
@@ -109,7 +109,7 @@
                 <div class="flex items-center gap-2 mb-1">
                   <p class="text-white ">Poste : </p>
                 </div>
-                <p class="text-gray-400 font-semibold text-base">{{ project.myRole.title }}</p>
+                <p class="text-gray-400 font-semibold sm:text-base text-sm">{{ project.myRole.title }}</p>
               </div>
 
               <!-- Responsabilités -->
@@ -121,7 +121,7 @@
                 <ul class="space-y-2">
                   <li 
                     *ngFor="let responsibility of project.myRole.responsibilities"
-                    class="flex items-start gap-2 text-gray-300  leading-relaxed"
+                    class="flex items-start gap-2 sm:text-base text-sm text-gray-300  leading-relaxed"
                   >
                   <span class="text-pink-400 mt-1">✦</span>
                     {{ responsibility }}
@@ -142,7 +142,7 @@
         <!-- Galerie d'images -->
         <div
           *ngIf="project.screenshots && project.screenshots.length > 0"
-          class="glass rounded-2xl p-6 md:p-8 mb-8"
+          class="glass  rounded-2xl p-6 md:p-8 mb-8"
         >
           <h2 class="xl:text-2xl text-xl font-bold mb-4">Captures d'écran</h2>
 
@@ -169,7 +169,7 @@
               <button
                 (click)="prevImage()"
                 [disabled]="currentImageIndex === 0"
-                class="px-4 py-2 glass rounded-xl hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                class="px-4 py-2 glass rounded-xl sm:text-base text-sm hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 ← Précédent
               </button>
@@ -179,7 +179,7 @@
               <button
                 (click)="nextImage()"
                 [disabled]="currentImageIndex === project.screenshots.length - 1"
-                class="px-4 py-2 glass rounded-xl hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                class="px-4 py-2 sm:text-base text-sm glass rounded-xl hover:bg-white/10 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 Suivant →
               </button>
@@ -188,13 +188,13 @@
             <!-- Miniatures -->
             <div
               *ngIf="project.screenshots.length > 1"
-              class="flex gap-2 mt-4 overflow-x-auto pb-2"
+              class="sm:flex hidden gap-2 mt-4 overflow-x-auto pb-2"
             >
               <img
                 *ngFor="let screenshot of project.screenshots; let i = index"
                 [src]="screenshot"
                 (click)="currentImageIndex = i"
-                class="w-20 h-20 object-cover rounded-lg cursor-pointer transition-all hover:scale-105"
+                class="sm:w-20 w-16 sm:h-20 h-16 object-cover rounded-lg cursor-pointer transition-all hover:scale-105"
                 [class.border-2]="i === currentImageIndex"
                 [class.border-pink-500]="i === currentImageIndex"
                 [class.opacity-50]="i !== currentImageIndex"
@@ -207,7 +207,7 @@
         <div class="space-y-8">
           <div *ngIf="project.longDescription" class="glass rounded-2xl p-6 md:p-8">
             <h2 class="xl:text-2xl text-xl font-bold mb-4">Description</h2>
-            <p class="text-gray-300 leading-relaxed">
+            <p class="text-gray-300 sm:text-base text-sm leading-relaxed">
               {{ project.longDescription }}
             </p>
           </div>
@@ -221,7 +221,7 @@
             <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <li
                 *ngFor="let feature of project.features"
-                class="flex items-start gap-2 xl:text-auto  text-gray-300"
+                class="flex sm:text-base text-sm items-start gap-2 xl:text-auto  text-gray-300"
               >
                 <span class="text-pink-400 mt-1">✦</span>
                 {{ feature }}
@@ -238,7 +238,7 @@
             <ul class="space-y-3">
               <li
                 *ngFor="let challenge of project.challenges"
-                class="flex items-start gap-2 text-gray-300"
+                class="flex sm:text-base text-sm items-start gap-2 text-gray-300"
               >
               <span class="text-pink-400 mt-1">✦</span>
                 {{ challenge }}
