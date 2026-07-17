@@ -1,4 +1,3 @@
-<!-- pages/project-detail/project-detail.html -->
 <div class="min-h-screen w-defaultwidth mx-auto pt-40 py-16 px-4 md:px-8">
   <!-- Bouton retour -->
   <div class="mx-auto mb-6">
@@ -19,14 +18,133 @@
 
   <!-- Détails du projet -->
   <div *ngIf="!isLoading && project" class="mx-auto">
-    <div class="md:grid grid-cols-3 gap-x-6">
-      <div class="col-span-2">
+    <div class="grid xl:grid-cols-3 gap-6">
+      <!-- Informations détaillées -->
+
+      <div class="col-span-1">
+        <!-- En-tête -->
+        <div class="glass rounded-2xl p-6 md:p-8 mb-8">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3 mb-3">
+                <span
+                  class="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r {{
+                    getCategoryColor(project.category)
+                  }} text-white"
+                >
+                  {{ getCategoryIcon(project.category) }} {{ project.category }}
+                </span>
+                <span class="px-3 py-1 rounded-full glass text-xs font-bold text-gray-300">
+                  {{ project.year }}
+                </span>
+              </div>
+              <h1 class="2xl:text-3xl text-xl font-extrabold  gradient-text my-4">
+                {{ project.title }}
+              </h1>
+              <p class="text-gray-400 ">
+                {{ project.description }}
+              </p>
+            </div>
+
+            <!-- Actions rapides -->
+            <div class="flex w-full gap-3">
+              <button
+                *ngIf="project.demoUrl"
+                (click)="openLink(project.demoUrl, $event)"
+                class="w-full  py-2 bg-gradient-to-r  from-pink-500 to-purple-500 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+              >
+                Voir le site
+              </button>
+              <button
+                *ngIf="project.githubUrl"
+                (click)="openLink(project.githubUrl, $event)"
+                class="w-full py-2 border border-white/50 glass-hover rounded-xl font-semibold"
+              >
+                Code source
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Sidebar informations -->
+        <div class="space-y-6">
+          <div class="glass rounded-2xl p-6">
+            <h3 class="xl:text-2xl text-xl font-bold mb-4">Informations</h3>
+            <div class="space-y-3">
+              <div *ngIf="project.client">
+                <p class="text-white  pb-1">Client</p>
+                <p class="text-gray-400 font-medium">{{ project.client }}</p>
+              </div>
+              <div *ngIf="project.duration">
+                <p class="text-white  pb-1">Durée</p>
+                <p class="text-gray-400 font-medium">{{ project.duration }}</p>
+              </div>
+              <div *ngIf="project.team">
+                <p class="text-white  pb-1">Équipe</p>
+                <p class="text-gray-400 font-medium">{{ project.team }}</p>
+              </div>
+           
+            </div>
+          </div>
+
+          <div class="glass rounded-2xl p-6">
+            <h3 class="xl:text-2xl text-xl font-bold mb-4"> Technologies</h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                *ngFor="let tech of project.technologies"
+                class="px-3 py-1 text-xs rounded-full glass text-gray-300"
+              >
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+
+          <!-- SECTION: Mon rôle -->
+          <div *ngIf="project.myRole" class="glass rounded-2xl p-6 border-l-4 border-pink-500">
+            <h3 class="xl:text-2xl text-xl font-bold mb-4">
+               Mon rôle
+            </h3>
+            <div class="space-y-4">
+              <!-- Poste -->
+              <div *ngIf="project.myRole.title">
+                <div class="flex items-center gap-2 mb-1">
+                  <p class="text-white ">Poste : </p>
+                </div>
+                <p class="text-gray-400 font-semibold text-base">{{ project.myRole.title }}</p>
+              </div>
+
+              <!-- Responsabilités -->
+              <div *ngIf="project.myRole.responsibilities && project.myRole.responsibilities.length > 0">
+                <div class="flex items-center gap-2 mb-2">
+                  
+                  <p class="text-white ">Responsabilités : </p>
+                </div>
+                <ul class="space-y-2">
+                  <li 
+                    *ngFor="let responsibility of project.myRole.responsibilities"
+                    class="flex items-start gap-2 text-gray-300  leading-relaxed"
+                  >
+                  <span class="text-pink-400 mt-1">✦</span>
+                    {{ responsibility }}
+                  </li>
+                </ul>
+              </div>
+
+           
+              
+            
+            </div>
+          </div>
+        </div>
+       
+      </div>
+
+      <div class="xl:col-span-2">
         <!-- Galerie d'images -->
         <div
           *ngIf="project.screenshots && project.screenshots.length > 0"
           class="glass rounded-2xl p-6 md:p-8 mb-8"
         >
-          <h2 class="text-2xl font-bold mb-4">📸 Captures d'écran</h2>
+          <h2 class="xl:text-2xl text-xl font-bold mb-4">Captures d'écran</h2>
 
           <div class="relative">
             <!-- Image principale -->
@@ -55,7 +173,7 @@
               >
                 ← Précédent
               </button>
-              <span class="text-gray-400 text-sm">
+              <span class="text-gray-400 text-sm ">
                 {{ currentImageIndex + 1 }} / {{ project.screenshots.length }}
               </span>
               <button
@@ -85,116 +203,10 @@
             </div>
           </div>
         </div>
-        <!-- En-tête -->
-        <div class="glass rounded-2xl p-6 md:p-8 mb-8">
-          <div class="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <div class="flex items-center gap-3 mb-3">
-                <span
-                  class="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r {{
-                    getCategoryColor(project.category)
-                  }} text-white"
-                >
-                  {{ getCategoryIcon(project.category) }} {{ project.category }}
-                </span>
-                <span class="px-3 py-1 rounded-full glass text-xs font-bold text-gray-300">
-                  {{ project.year }}
-                </span>
-              </div>
-              <h1 class="text-3xl md:text-5xl font-extrabold gradient-text mb-3">
-                {{ project.title }}
-              </h1>
-              <p class="text-gray-400 text-lg">
-                {{ project.description }}
-              </p>
-            </div>
-
-            <!-- Actions rapides -->
-            <div class="flex flex-wrap gap-3">
-              <button
-                *ngIf="project.demoUrl"
-                (click)="openLink(project.demoUrl, $event)"
-                class="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl font-semibold hover:opacity-90 transition-opacity"
-              >
-                🔗 Voir le site
-              </button>
-              <button
-                *ngIf="project.githubUrl"
-                (click)="openLink(project.githubUrl, $event)"
-                class="px-6 py-3 glass-hover rounded-xl font-semibold"
-              >
-                💻 Code source
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Informations détaillées -->
-      <div class="col-span-1">
-        <!-- Sidebar informations -->
-        <div class="space-y-6">
-          <div class="glass rounded-2xl p-6">
-            <h3 class="text-lg font-bold mb-4">📊 Informations</h3>
-            <div class="space-y-3">
-              <div *ngIf="project.client">
-                <p class="text-gray-400 text-sm">Client</p>
-                <p class="text-white font-medium">{{ project.client }}</p>
-              </div>
-              <div *ngIf="project.duration">
-                <p class="text-gray-400 text-sm">Durée</p>
-                <p class="text-white font-medium">{{ project.duration }}</p>
-              </div>
-              <div *ngIf="project.team">
-                <p class="text-gray-400 text-sm">Équipe</p>
-                <p class="text-white font-medium">{{ project.team }}</p>
-              </div>
-              <div>
-                <p class="text-gray-400 text-sm">Année</p>
-                <p class="text-white font-medium">{{ project.year }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="glass rounded-2xl p-6">
-            <h3 class="text-lg font-bold mb-4">🛠️ Technologies</h3>
-            <div class="flex flex-wrap gap-2">
-              <span
-                *ngFor="let tech of project.technologies"
-                class="px-3 py-1 text-xs rounded-full glass text-gray-300"
-              >
-                {{ tech }}
-              </span>
-            </div>
-          </div>
-
-          <!-- Liens supplémentaires -->
-          <div *ngIf="project.demoUrl || project.githubUrl" class="glass rounded-2xl p-6">
-            <h3 class="text-lg font-bold mb-4">🔗 Liens</h3>
-            <div class="space-y-3">
-              <a
-                *ngIf="project.demoUrl"
-                [href]="project.demoUrl"
-                target="_blank"
-                class="flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors"
-              >
-                🌐 Site en ligne
-              </a>
-              <a
-                *ngIf="project.githubUrl"
-                [href]="project.githubUrl"
-                target="_blank"
-                class="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors"
-              >
-                💻 Code source
-              </a>
-            </div>
-          </div>
-        </div>
         <!-- Description -->
         <div class="space-y-8">
           <div *ngIf="project.longDescription" class="glass rounded-2xl p-6 md:p-8">
-            <h2 class="text-2xl font-bold mb-4">📝 Description</h2>
+            <h2 class="xl:text-2xl text-xl font-bold mb-4">Description</h2>
             <p class="text-gray-300 leading-relaxed">
               {{ project.longDescription }}
             </p>
@@ -205,11 +217,11 @@
             *ngIf="project.features && project.features.length > 0"
             class="glass rounded-2xl p-6 md:p-8"
           >
-            <h2 class="text-2xl font-bold mb-4">⚡ Fonctionnalités principales</h2>
+            <h2 class="xl:text-2xl text-xl font-bold mb-4">Fonctionnalités principales</h2>
             <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <li
                 *ngFor="let feature of project.features"
-                class="flex items-start gap-2 text-gray-300"
+                class="flex items-start gap-2 xl:text-auto  text-gray-300"
               >
                 <span class="text-pink-400 mt-1">✦</span>
                 {{ feature }}
@@ -222,25 +234,26 @@
             *ngIf="project.challenges && project.challenges.length > 0"
             class="glass rounded-2xl p-6 md:p-8"
           >
-            <h2 class="text-2xl font-bold mb-4">🎯 Défis relevés</h2>
+            <h2 class="xl:text-2xl text-xl font-bold mb-4">Défis relevés</h2>
             <ul class="space-y-3">
               <li
                 *ngFor="let challenge of project.challenges"
                 class="flex items-start gap-2 text-gray-300"
               >
-                <span class="text-purple-400 mt-1">▸</span>
+              <span class="text-pink-400 mt-1">✦</span>
                 {{ challenge }}
               </li>
             </ul>
           </div>
         </div>
       </div>
+
+   
     </div>
   </div>
   <!-- Projet non trouvé -->
   <div *ngIf="!isLoading && !project" class="text-center py-16">
-    <div class="text-6xl mb-4">😕</div>
-    <h3 class="text-2xl font-bold text-gray-400">Projet non trouvé</h3>
+    <h3 class="xl:text-2xl text-xl font-bold text-gray-400">Projet non trouvé</h3>
     <p class="text-gray-500 mt-2">Le projet que vous recherchez n'existe pas</p>
     <button
       (click)="goBack()"
